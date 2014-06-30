@@ -15,6 +15,7 @@ import java.util.Comparator;
 import java.util.Objects;
 
 import org.eclipse.imp.pdb.facts.IValue;
+import org.eclipse.imp.pdb.facts.IWrapped;
 
 public class EqualityUtils {
 
@@ -43,6 +44,13 @@ public class EqualityUtils {
 			public int compare(Object a, Object b) {
 				IValue v = (IValue) a;
 				IValue w = (IValue) b;
+				
+				if (v instanceof IWrapped) {
+					v = ((IWrapped)v).getWrappedValue();
+				}
+				if (w instanceof IWrapped) {
+					w = ((IWrapped)w).getWrappedValue();
+				}
 
 				if ((v == w) || (v != null && v.isEqual(w)))
 					return 0;
